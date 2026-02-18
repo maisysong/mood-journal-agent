@@ -1,0 +1,20 @@
+# Environment variables (never commit this)
+.env
+
+# Virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Journal data (personal — don't commit)
+data/
+
+# macOS junk
+.DS_Store
+
+# Editor folders
+.vscode/
+.idea/
