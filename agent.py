@@ -50,8 +50,18 @@ def run_agent(conversation_history: list) -> str:
 
             for tc in message.tool_calls:
                 tool_name = tc.function.name
-                tool_args = json.loads(tc.function.arguments)
-                print(f"  [tool call] {tool_name}({tool_args})")
+                tool_args = tc.function.arguments
+                if isinstance(tool_args, str):
+                    tool_args = json.loads(tool_args)
+                if isinstance(tool_args, str):
+                    tool_args = json.loads(tool_args)
+                if not isinstance(tool_args, dict):
+                    tool_args = {}
+
+                for key, value in tool_args.items():
+                    if isinstance(value, str) and value.isdigit():
+                        tool_args[key] = int(value)
+                print(f"\n  [tool call] {tool_name}({tool_args})")
 
                 tool_fn = TOOL_MAP.get(tool_name)
                 if tool_fn:
